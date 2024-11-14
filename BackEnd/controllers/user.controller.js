@@ -187,7 +187,7 @@ export const editProfile = async (req,res)=>{
 
 
 // for suggesting users
-export const getSuggestedUser=async (req,res)=>{
+export const getSuggestedUsers=async (req,res)=>{
   try {
     const suggestedUser=await User.findById({_id:{$ne:req.id}}).select("-password");
     if(!suggestedUser){

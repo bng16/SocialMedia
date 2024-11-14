@@ -5,6 +5,7 @@ import express, { urlencoded } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./utils/db.js";
+import UserRoute from "./routes/user.route.js"
 
 
 const app = express();
@@ -26,6 +27,8 @@ const corsOption = {
   credentials: true,
 };
 app.use(cors());
+
+app.use('/api/v1/user',UserRoute);
 
 const PORT = process.env.PORT || 8080;
 const startServer = async () => {
