@@ -160,7 +160,7 @@ export const editProfile = async (req,res)=>{
     }}
 
 
-    const user=await User.findById(userId);
+    const user=await User.findById(userId).select('-password');
     if(!user){
       return res.status(401).json({
         message:"user not found!",
@@ -189,7 +189,7 @@ export const editProfile = async (req,res)=>{
 // for suggesting users
 export const getSuggestedUsers=async (req,res)=>{
   try {
-    const suggestedUser=await User.findById({_id:{$ne:req.id}}).select("-password");
+    const suggestedUser = await User.find({ _id: { $ne: req.id } }).select("-password");
     if(!suggestedUser){
       return res.status(400).json({
         message:"Currently do not have any users",
