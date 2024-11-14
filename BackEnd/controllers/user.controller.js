@@ -135,7 +135,7 @@ export const logout= (_,res)=>{
 export const getProfile = async (req,res)=>{
   try {
     const userId = req.params.id;
-    let user= await User.findById(userId);
+    let user= await User.findById(userId).select('-password');
     return res.status(200).json({
       user,
       success:true,
@@ -216,8 +216,8 @@ export const followOrUnfollow= async (req,res)=>{
         success:false,
       })
     }
-    const user=User.findById(firstUser);
-    const targetUser=User.findById(secondUser);
+    const user=await User.findById(firstUser);
+    const targetUser=await User.findById(secondUser);
     if(!user || !targetUser){
       return res.status(400).json({
         message:"user not found!",
